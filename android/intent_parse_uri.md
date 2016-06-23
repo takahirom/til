@@ -5,7 +5,7 @@ Chromeや標準ブラウザはこれを利用してURLから起動するIntent�
 ## 旧パターン
 
 ```
-testdata#action(test)categories(test!test2)type(mtype)launchFlags(5)
+intent:testdata#action(test)categories(test!test2)type(mtype)launchFlags(5)
 ```
 
 みたいな感じ  
