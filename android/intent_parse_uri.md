@@ -1,5 +1,6 @@
 # Intent#parseUri
 3パターンのIntentをパースできる
+これはChromeや標準ブラウザはこれを利用してURLから起動するIntentを決める。
 
 ## 旧パターン
 
