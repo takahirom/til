@@ -54,7 +54,7 @@ android-app://com.example.app/http/example.com/foo?1234
 
 こんな感じ
 
-API Level 22から使う古語ができる、22未満ではparseUriすると、おそらくIntentのデータに入ることになる
+API Level 22から使うことができる、22未満ではparseUriすると、おそらくIntentのデータに入ることになる
 
 そのintentをstartActivityしてもうまく動く。理由はおそらく以下のActivityがスキーマを受け取って割り振ってくれるように作ってあるからである。
 com.google.android.googlequicksearchbox/com.google.android.search.calypso.AppIndexingActivity
