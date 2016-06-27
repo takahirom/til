@@ -1,5 +1,4 @@
-テーマか要素か何かがあたって、なんでViewがこの色になるの！？みたいな状態になることって無いですか？
-backgroundの色など
+# styleが適応される順番
 
 1.layout.xmlで指定されている要素 AttributeSet   
 
