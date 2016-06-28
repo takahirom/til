@@ -1,6 +1,8 @@
 # Intent#parseUri
 3パターンのIntentをパースできる。  
-Chromeや標準ブラウザはこれを利用してURLから起動するIntentを決める。
+Chromeや標準ブラウザはこれを利用してURLから起動するIntentを決める。  
+ChromeのURLハンドリングは以下の場所にある模様。  
+https://cs.chromium.org/chromium/src/chrome/android/java/src/org/chromium/chrome/browser/externalnav/ExternalNavigationHandler.java?q=Intent.parseUri&sq=package:chromium&l=99&dr=C
 
 ## 旧パターン
 
