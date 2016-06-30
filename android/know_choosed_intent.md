@@ -3,6 +3,9 @@
 
 
 こちらのドキュメントの説明には以下のようにあります。  
+Intent.createChooser(android.content.Intent, java.lang.CharSequence, android.content.IntentSender)がAPI Level 22で追加されています。
+この引数のIntentSenderによってブロードキャストが投げられるようです。
+
 https://developer.android.com/reference/android/content/Intent.html#createChooser(android.content.Intent, java.lang.CharSequence, android.content.IntentSender)
 
      The caller may optionally supply an IntentSender to receive a callback when the user makes a choice. This can be useful if the calling application wants to remember the last chosen target and surface it as a more prominent or one-touch affordance elsewhere in the UI for next time.   
