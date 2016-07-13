@@ -3,6 +3,8 @@
 DeviceIdleControllerで状態を管理
 https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/DeviceIdleController.java#1392
 
+まず状態が切り替わった時に以下のように`scheduleAlarmLocked`を呼ぶ。  
+
 ```java
             case STATE_IDLE_MAINTENANCE:
                 scheduleAlarmLocked(mNextIdleDelay, true);
@@ -13,16 +15,11 @@ https://android.googlesource.com/platform/frameworks/base/+/master/services/core
 
 https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/DeviceIdleController.java#1505
 
+AlarmManager.setIdleUntil()またはAlarmManager.set()を呼び出す  
+
 ```java
     void scheduleAlarmLocked(long delay, boolean idleUntil) {
-        if (DEBUG) Slog.d(TAG, "scheduleAlarmLocked(" + delay + ", " + idleUntil + ")");
-        if (mMotionSensor == null) {
-            // If there is no motion sensor on this device, then we won't schedule
-            // alarms, because we can't determine if the device is not moving.  This effectively
-            // turns off normal execution of device idling, although it is still possible to
-            // manually poke it by pretending like the alarm is going off.
-            return;
-        }
+        // 省略
         mNextAlarmTime = SystemClock.elapsedRealtime() + delay;
         if (idleUntil) {
             mAlarmManager.setIdleUntil(AlarmManager.ELAPSED_REALTIME_WAKEUP,
