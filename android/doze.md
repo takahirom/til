@@ -3,6 +3,7 @@
 DeviceIdleControllerで状態を管理
 https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/DeviceIdleController.java#1392
 
+これは次にmStateがIDLE=Dozeモードに切り替わるときのコード。つまりはDozeモードに入るときのコード。  
 まず状態が切り替わった時に以下のように`scheduleAlarmLocked`を呼ぶ。  
 
 ```java
@@ -11,11 +12,14 @@ https://android.googlesource.com/platform/frameworks/base/+/master/services/core
                 if (DEBUG) Slog.d(TAG, "Moved to STATE_IDLE. Next alarm in " + mNextIdleDelay +
                         " ms.");
                 mNextIdleDelay = (long)(mNextIdleDelay * mConstants.IDLE_FACTOR);
+                mNextIdleDelay = Math.min(mNextIdleDelay, mConstants.MAX_IDLE_TIMEOUT);
+                mState = STATE_IDLE;
 ```
 
 https://android.googlesource.com/platform/frameworks/base/+/master/services/core/java/com/android/server/DeviceIdleController.java#1505
 
 AlarmManager.setIdleUntil()またはAlarmManager.set()を呼び出す  
+引数がtrueなのでsetIdleUntil()を呼ぶ
 
 ```java
     void scheduleAlarmLocked(long delay, boolean idleUntil) {
