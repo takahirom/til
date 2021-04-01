@@ -1,0 +1,17 @@
+digraph graph_name {
+    "blank" -> "a"
+    "a" -> "ab"
+    "ab" -> "abc"
+    "a" -> "ac"
+    "ac" -> "acb"
+    "blank" -> "b"
+    "b" -> "ba"
+    "ba" -> "bac"
+    "b" -> "bc"
+    "bc" -> "bca"
+    "blank" -> "c"
+    "c" -> "ca"
+    "ca" -> "cab"
+    "c" -> "cb"
+    "cb" -> "cba"
+}
