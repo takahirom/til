@@ -30,7 +30,19 @@ interface Tree {
 }
 
 open class BinaryTree(override val root: BinaryTreeNode) : Tree {
-    fun depthToNodes(): List<List<BinaryTreeNode>> {
+    /**
+     *   1
+     *  2 3
+     * 4 5 6 7
+     *
+     * 1
+     * 2, 3
+     * 4, 5, 6, 7
+     *
+     * Time complexity: O(N)
+     * Space complexity: O(log N)
+     */
+    fun depthNodes(): List<List<BinaryTreeNode>> {
         val nodes = mutableListOf<List<BinaryTreeNode>>()
         nodes.add(listOf(root))
         while (true) {
@@ -68,6 +80,9 @@ open class BinaryTree(override val root: BinaryTreeNode) : Tree {
      *     6
      *       7
      *   9
+     *
+     * Time complexity: O(N)
+     * Space complexity: O(H) (H = Tree height)
      */
     fun isSelfBalancingTree(): Boolean {
         fun checkBalancing(depth: Int, node: BinaryTreeNode): CheckBalancingResult {
@@ -90,6 +105,10 @@ open class BinaryTree(override val root: BinaryTreeNode) : Tree {
         return checkBalancing(1, root) is CheckBalancingResult.NodeDepths
     }
 
+    /**
+     * Time complexity: O(N)
+     * Space complexity: O(log N) (If self balancing tree)
+     */
     fun isSearchTree(): Boolean {
         fun checkSearchTree(node: BinaryTreeNode?, min: Int, max: Int): Boolean {
             if (node == null) return true
@@ -112,6 +131,10 @@ open class BinaryTree(override val root: BinaryTreeNode) : Tree {
 
 class BinarySearchTree(override val root: BinaryTreeNode) : BinaryTree(root) {
     companion object {
+        /**
+         * Time complexity: O(N)
+         * Space complexity: O(N)
+         */
         fun of(sortedValues: List<Int>): BinarySearchTree {
             fun buildBinaryTreeNode(first: Int, end: Int): BinaryTreeNode {
                 val rangeSize = end - first
