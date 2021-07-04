@@ -6,5 +6,5 @@ import com.github.takahirom.tree.*
 fun main() {
     val tree = BinarySearchTree.of(listOf(0, 1, 2, 3, 4, 5, 6))
     tree.root.printTree()
-    println(tree.depthToNodes())
+    println(tree.depthNodes())
 }
