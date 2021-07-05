@@ -1,4 +1,4 @@
-// This file was automatically generated from 6.md by Knit tool. Do not edit.
+// This file was automatically generated from 5.md by Knit tool. Do not edit.
 package com.github.takahirom.algorithm.exampleIsBinarySearchNode01
 
 import com.github.takahirom.tree.*

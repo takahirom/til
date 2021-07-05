@@ -1,6 +1,8 @@
 package com.github.takahirom.tree
 
 interface TreeNode {
+    // if null, not implemented or root
+    var parent: TreeNode?
     val children: List<TreeNode>
 }
 
@@ -9,6 +11,7 @@ open class BinaryTreeNode(
     var left: BinaryTreeNode? = null,
     var right: BinaryTreeNode? = null,
 ) : TreeNode {
+    override var parent: TreeNode? = null
     override val children: List<BinaryTreeNode>
         get() = listOfNotNull(left, right)
 
@@ -130,6 +133,53 @@ open class BinaryTree(override val root: BinaryTreeNode) : Tree {
 
 
 class BinarySearchTree(override val root: BinaryTreeNode) : BinaryTree(root) {
+    fun findNodeByValue(value: Int): BinaryTreeNode? {
+        var node: BinaryTreeNode? = root
+        while (true) {
+            when {
+                node == null -> return null
+                node.value == value -> return node
+                node.value > value -> node = node.left
+                node.value < value -> node = node.right
+            }
+        }
+    }
+
+    /**
+     * Time complexity: O(h)
+     * Space complexity: O(1)
+     */
+    fun getNextNodeInOrderByValue(value: Int): BinaryTreeNode? {
+        var node = findNodeByValue(value) ?: return null
+        var nextAccessNode = getNextAccessNode(node)
+        while (nextAccessNode?.left != null) {
+            nextAccessNode = nextAccessNode.left
+        }
+        return nextAccessNode
+    }
+
+    private fun getNextAccessNode(node: BinaryTreeNode): BinaryTreeNode? {
+        var currentNode: BinaryTreeNode? = node
+        if (currentNode?.right != null) {
+            return currentNode?.right
+        }
+        var previousNode = currentNode
+        currentNode = currentNode?.parent as BinaryTreeNode?
+        while (true) {
+            if (currentNode?.right == previousNode) {
+                previousNode = currentNode
+                currentNode = currentNode?.parent as BinaryTreeNode?
+                continue
+            }
+            if (currentNode?.right != null) return currentNode?.right
+            if (currentNode?.parent == null) {
+                return null
+            }
+            previousNode = currentNode
+            currentNode = currentNode.parent as BinaryTreeNode?
+        }
+    }
+
     companion object {
         /**
          * Time complexity: O(N)
@@ -141,17 +191,25 @@ class BinarySearchTree(override val root: BinaryTreeNode) : BinaryTree(root) {
                 if (rangeSize == 0) {
                     return BinaryTreeNode(sortedValues[first])
                 } else if (rangeSize == 1) {
-                    return BinaryTreeNode(
+                    val left = BinaryTreeNode(sortedValues[first])
+                    val binaryTreeNode = BinaryTreeNode(
                         sortedValues[first + 1],
-                        BinaryTreeNode(sortedValues[first]),
+                        left,
                         null
                     )
+                    left.parent = binaryTreeNode
+                    return binaryTreeNode
                 } else if (rangeSize == 2) {
-                    return BinaryTreeNode(
+                    val left = BinaryTreeNode(sortedValues[first])
+                    val right = BinaryTreeNode(sortedValues[end])
+                    val binaryTreeNode = BinaryTreeNode(
                         sortedValues[first + 1],
-                        BinaryTreeNode(sortedValues[first]),
-                        BinaryTreeNode(sortedValues[end])
+                        left,
+                        right
                     )
+                    left.parent = binaryTreeNode
+                    right.parent = binaryTreeNode
+                    return binaryTreeNode
                 }
                 var n = 2
                 while (n <= rangeSize) n *= 2
@@ -160,6 +218,8 @@ class BinarySearchTree(override val root: BinaryTreeNode) : BinaryTree(root) {
                 val root = BinaryTreeNode(rootValue)
                 root.left = buildBinaryTreeNode(first, centerIndex - 1)
                 root.right = buildBinaryTreeNode(centerIndex + 1, end)
+                root.left?.parent = root
+                root.right?.parent = root
                 return root
             }
             return BinarySearchTree(buildBinaryTreeNode(0, sortedValues.size - 1))
