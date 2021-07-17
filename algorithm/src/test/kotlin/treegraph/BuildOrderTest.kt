@@ -8,7 +8,7 @@ class BuildOrderTest {
     @Test
     fun testExampleBuildOrder01() {
         captureOutput("ExampleBuildOrder01") { com.github.takahirom.algorithm.exampleBuildOrder01.main() }.verifyOutputLines(
-            "[c, e, d, a, b, f]"
+            "[f, a, b, d, c, e]"
         )
     }
 }

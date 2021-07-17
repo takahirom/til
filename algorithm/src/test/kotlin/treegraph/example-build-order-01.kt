@@ -6,7 +6,7 @@ import java.util.*
 
 fun main() {
     val projects = listOf("a", "b", "c", "d", "e", "f")
-    val list = listOf("b" to "a", "d" to "a", "e" to "d", "c" to "e", "c" to "b")
+    val list = listOf("a" to "d", "f" to "b", "b" to "d", "f" to "a", "d" to "c")
     val adjacencyList = mutableMapOf<String, MutableList<String>>()
     list.forEach { (dependentProject, project) ->
         val dependencies = adjacencyList.getOrPut(project) {
